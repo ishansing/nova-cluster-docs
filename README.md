@@ -12,13 +12,13 @@ portfolio project for infra/SRE/DevOps roles.
 | Management / control plane | Proxmox VE cluster with HA | nova-ctrl + all nodes |
 | Remote access | 2× VPN LXC, NetBird + Tailscale overlays | nova-ctrl |
 | Orchestration | k3s | nova-01, nova-02, nova-03 |
-| Workloads | Application VMs/LXCs | nova-04 |
-| Storage | ZFS pools (mirror/RAIDZ), SSD for OS, HDD for data | nova-01..04 |
+| Workloads | Application VMs/LXCs | nova-04 (+ Hermes agent VM on nova-03) |
+| Storage | `local` dir + `nova-orbit` / `nova-vault` ZFS pools | nova-01..04 |
 
-Services hosted: [Immich](services/immich.md), [Dokploy](services/dokploy.md),
-[Gitea](services/gitea.md), [Navidrome](services/navidrome.md),
-[Hermes agent](services/hermes-agent.md), and two
-[VPN LXCs](services/vpn.md).
+Services running: [Immich](services/immich.md), [Navidrome](services/navidrome.md),
+[Hermes agent](services/hermes-agent.md), and [Tailscale](services/vpn.md)
+— the full guest list per the Proxmox API (see
+[services/index.md](services/index.md)).
 
 ## Documentation map
 

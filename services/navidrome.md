@@ -6,7 +6,10 @@ Self-hosted music streaming server (Subsonic-compatible).
 
 | Field | Value |
 |---|---|
-| Host | nova-04 (LXC) |
+| Host | nova-04 — lxc/103 (stopped) |
+| vCPU / RAM | 1 / 1 GB (swap 512 MB) |
+| Disk | 8 GB on `local` storage (`local:103/vm-103-disk-0.raw`) |
+| Network | vmbr0, static IP (host octet masked), firewall on; unprivileged Ubuntu container |
 | Purpose | Music streaming |
 | Exposure | `TODO(T10)` |
 | URL | `TODO(T11)` |
@@ -15,8 +18,9 @@ Self-hosted music streaming server (Subsonic-compatible).
 
 ## Dependencies
 
-- Runs as an LXC on nova-04; media library typically on the services ZFS pool
-  (`TODO(T4)`/`TODO(T12)`).
+- Root filesystem is the 8 GB disk on `local` storage. Where the music library
+  itself lives is `TODO(T12)` — if it is meant to sit on the ZFS HDDs, that
+  wiring is `TODO(T4)`.
 - Clients connect via Subsonic API; if used remotely, route through the VPN overlays
   (`TODO(T10)`).
 

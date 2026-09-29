@@ -11,7 +11,7 @@ Docs reference these IDs as `TODO(T#)` rather than restating the question.
 | T1 | Proxmox | What Proxmox VE version runs on each node? (All nodes confirmed on the same release; version number TBD.) | Open |
 | T2 | k3s | Which node is the k3s server (control plane) vs. pure worker? | Open |
 | T3 | VPN LXCs | What are the two VPN LXCs on nova-ctrl (names, stacks, roles)? | Open |
-| T4 | ZFS | Which node(s) own the k3s-storage pool vs. the services pool? | Open |
+| T4 | ZFS | Which node(s) own the k3s-storage pool vs. the services pool? | Partial — storage IDs observed 2026-09-27: `local` (dir) + `nova-orbit` / `nova-vault` (zfspool) on every online node; all guest disks live on `local`; purpose mapping still open |
 | T5 | ZFS | Are pools single-disk, or mirror/RAIDZ? | Resolved — mirror/RAIDZ (not single-disk); exact mirror-vs-RAIDZ topology folded into T4 |
 | T6 | ZFS | How are VM disks split across SSD vs. HDD? | Resolved — OS/boot on 256 GB SSD, bulk data on 1 TB ZFS HDD |
 | T7 | Network | Main subnets and VLAN IDs? | Open |

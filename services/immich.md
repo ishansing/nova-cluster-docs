@@ -6,7 +6,10 @@ Photo-management platform (self-hosted alternative to Google Photos).
 
 | Field | Value |
 |---|---|
-| Host | nova-04 (VM) |
+| Host | nova-04 — qemu/101 (running) |
+| vCPU / RAM | 4 / 8 GB |
+| Disk | 20 GB on `local` storage (`local:101/vm-101-disk-0.qcow2`) |
+| Network | vmbr0, firewall on |
 | Purpose | Photo & video management, backups from phones |
 | Exposure | Internet-facing (confirmed) |
 | URL | `TODO(T11)` |
@@ -15,8 +18,8 @@ Photo-management platform (self-hosted alternative to Google Photos).
 
 ## Dependencies
 
-- Runs on the **services** ZFS pool on nova-04 — pool ownership `TODO(T4)`, data
-  location `TODO(T12)`.
+- Photo data lives on the VM's 20 GB disk on `local` storage; if the library
+  outgrows it, plan a move to the ZFS pools (`TODO(T4)`/`TODO(T12)`).
 - Needs a reverse proxy / tunnel for its public URL (`TODO(T11)`); inbound path via
   VPN overlays or port forward on the consumer router is `TODO(T10)` detail.
 

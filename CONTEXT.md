@@ -16,7 +16,7 @@ Read both files at the start of every session.
 | Field | Value |
 |---|---|
 | Maintained by | Ishan Singh |
-| Last updated | 2026-08-29 |
+| Last updated | 2026-09-27 |
 | Status | Living document — update as facts are confirmed |
 
 ---
@@ -52,6 +52,12 @@ Cluster name: **nova**
 Cluster state:
 
 - All 5 nodes are joined into a single Proxmox cluster with HA enabled.
+- API snapshot 2026-09-27: cluster `Nova`, 5 members, quorate; nova-01..04
+  online, **nova-ctrl offline** (transient — re-check before treating as fact).
+- Observed guests 2026-09-27: nova-04 → qemu/101 `immich` (running), lxc/102
+  `tailscale` (running), lxc/103 `navidrome` (stopped); nova-03 → qemu/111
+  `hermes` (running); nova-01/02 → none. Dokploy/Gitea absent from snapshot
+  (verify); `TODO(T3)` unverifiable while nova-ctrl is offline.
 - **k3s** runs on nova-01, nova-02, nova-03 — exact control-plane layout is `TODO`.
 - **nova-ctrl** runs two VPN LXCs (names/stacks `TODO`).
 - **nova-04** currently hosts most application VMs and LXCs.
@@ -76,11 +82,12 @@ Cluster state:
 | Service | Host | Type | Purpose | External exposure |
 |---|---|---|---|---|
 | VPN LXC (×2) | nova-ctrl | LXC | Remote access / tunneling | `TODO` |
-| Navidrome | nova-04 | LXC | Music streaming | `TODO` |
-| Immich | nova-04 | VM | Photo management | Yes (exposed) |
-| Dokploy | nova-04 | VM | App hosting / deployment | Yes (exposed) |
-| Gitea | nova-04 | VM | Self-hosted Git | `TODO` |
-| Hermes agent | nova-04 | VM | AI agent stack | `TODO` |
+| Tailscale | nova-04 | LXC 102 (running, observed 2026-09-27) | Mesh VPN endpoint | `TODO` |
+| Navidrome | nova-04 | LXC 103 (stopped, observed 2026-09-27) | Music streaming | `TODO` |
+| Immich | nova-04 | VM 101 (running, observed 2026-09-27) | Photo management | Yes (exposed) |
+| Dokploy | nova-04 | VM (absent from 2026-09-27 snapshot — verify) | App hosting / deployment | Yes (exposed) |
+| Gitea | nova-04 | VM (absent from 2026-09-27 snapshot — verify) | Self-hosted Git | `TODO` |
+| Hermes agent | nova-03 | VM 111 (running) | AI agent stack | `TODO` |
 
 ## 7. Documentation preferences
 

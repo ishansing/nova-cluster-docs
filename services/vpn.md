@@ -1,23 +1,25 @@
-# Service — VPN LXCs & Overlays
+# Service — VPN & Overlays
 
-Remote access into the homelab. Two VPN LXCs run on **nova-ctrl**; their names, stacks,
-and roles are `TODO(T3)`.
+Remote access into the homelab via NetBird and Tailscale mesh overlays.
 
-## Overlays
-
-| Overlay | Use | Notes |
-|---|---|---|
-| NetBird | Mesh VPN overlay | Route to services without port forwarding |
-| Tailscale | Mesh VPN overlay | Route to services without port forwarding |
-
-## Facts
+## Tailscale LXC (observed)
 
 | Field | Value |
 |---|---|
-| Host | nova-ctrl (2× LXC) |
-| Purpose | Remote access / tunneling |
-| LXC names/stacks | `TODO(T3)` |
+| Host | nova-04 — lxc/102 (running, HA-managed) |
+| vCPU / RAM | 1 / 512 MB (swap 512 MB) |
+| Disk | 4 GB on `local` storage |
+| Network | vmbr0, DHCP, firewall on; unprivileged Ubuntu container |
 | Exposure | VPN-only by default; `TODO(T10)` |
+
+## NetBird
+
+Placement unknown — no NetBird guest exists on any online node. It may run on
+the offline nova-ctrl, on k3s, or outside the cluster (`TODO(T3)`).
+
+## nova-ctrl LXCs
+
+Unknown — the node was offline at snapshot time (`TODO(T3)`).
 
 ## Why overlays over port forwarding
 
@@ -28,8 +30,8 @@ dynamic link, and keep inbound attack surface small. See
 
 ## Operations notes
 
-- The VPN LXCs are the primary remote-admin path into the cluster. Keep them updated
-  and note them in the k3s upgrade cadence too (`TODO(T15)`).
+- The Tailscale LXC is currently the only verified remote-admin path into the
+  cluster. Keep it updated (`TODO(T15)`).
 - Reconnect/restart steps for each overlay are `TODO(T3)` until the stacks are
   identified.
 

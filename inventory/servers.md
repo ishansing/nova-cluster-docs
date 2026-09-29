@@ -7,20 +7,21 @@ All nodes run the same Proxmox VE release; the exact version is `TODO(T1)`.
 
 | Node | Role | CPU | RAM | Storage | Notes |
 |---|---|---|---|---|---|
-| nova-ctrl | Infra management / control-plane utilities | Intel i7 (older gen) | 8 GB DDR3 | 1 TB HDD | Runs 2 VPN LXCs `TODO(T3)` |
-| nova-01 | k3s node | Intel i5, 8th gen | 16 GB DDR4 | 256 GB SSD + 1 TB HDD (ZFS) | Server or worker `TODO(T2)` |
-| nova-02 | k3s node | Intel i5, 8th gen | 16 GB DDR4 | 256 GB SSD + 1 TB HDD (ZFS) | Server or worker `TODO(T2)` |
-| nova-03 | k3s node | Intel i5, 8th gen | 16 GB DDR4 | 256 GB SSD + 1 TB HDD (ZFS) | Server or worker `TODO(T2)` |
-| nova-04 | Workload host | Intel i5, 8th gen | 16 GB DDR4 | 256 GB SSD + 1 TB HDD (ZFS) | Hosts most application VMs/LXCs |
+| nova-ctrl | Infra management / control-plane utilities | Intel i7 (older gen) | 8 GB DDR3 | 1 TB HDD | Offline 2026-09-27; guests unknown (`TODO(T3)`) |
+| nova-01 | k3s node | Intel i5, 8th gen | 16 GB DDR4 | 256 GB SSD + 1 TB HDD (ZFS) | Server or worker `TODO(T2)`; no guests observed 2026-09-27 |
+| nova-02 | k3s node | Intel i5, 8th gen | 16 GB DDR4 | 256 GB SSD + 1 TB HDD (ZFS) | Server or worker `TODO(T2)`; no guests observed 2026-09-27 |
+| nova-03 | k3s node | Intel i5, 8th gen | 16 GB DDR4 | 256 GB SSD + 1 TB HDD (ZFS) | Server or worker `TODO(T2)`; hosts qemu/111 `hermes` (running) |
+| nova-04 | Workload host | Intel i5, 8th gen | 16 GB DDR4 | 256 GB SSD + 1 TB HDD (ZFS) | Hosts qemu/101 `immich`, lxc/102 `tailscale`, lxc/103 `navidrome` (observed 2026-09-27) |
 
 ## Responsibilities by node
 
-- **nova-ctrl** — management utilities and remote-access VPN LXCs. The lightest node
-  (8 GB RAM); it runs no k3s or application workloads.
-- **nova-01 .. nova-03** — the k3s cluster. Control-plane placement is
-  `TODO(T2)`.
-- **nova-04** — the primary workload host: Immich, Dokploy, Gitea, Navidrome, and the
-  Hermes agent all live here. See [services/index.md](../services/index.md).
+- **nova-ctrl** — management utilities. Offline as of 2026-09-27, so its guests
+  are unknown (`TODO(T3)`).
+- **nova-01 / nova-02** — k3s only. Control-plane placement is `TODO(T2)`;
+  neither node hosts any Proxmox guests.
+- **nova-03** — k3s (`TODO(T2)`) plus the `hermes` agent VM (qemu/111).
+- **nova-04** — application guests: `immich` (qemu/101), `tailscale` (lxc/102),
+  `navidrome` (lxc/103, stopped). See [services/index.md](../services/index.md).
 
 ## Disk layout convention
 

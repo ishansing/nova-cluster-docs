@@ -1,17 +1,24 @@
 # Services — Index
 
-All self-hosted services. Per-service pages hold the detail; this page is the catalog.
+Every Proxmox guest in the cluster, as observed via the read-only API on
+2026-09-27. Per-service pages hold the detail; this page is the catalog.
 
 ## Catalog
 
-| Service | Host | Type | Purpose | Exposure | Page |
-|---|---|---|---|---|---|
-| VPN LXC ×2 | nova-ctrl | LXC | Remote access / tunneling | `TODO(T10)` | [vpn.md](vpn.md) |
-| Navidrome | nova-04 | LXC | Music streaming | `TODO(T10)` | [navidrome.md](navidrome.md) |
-| Immich | nova-04 | VM | Photo management | Exposed | [immich.md](immich.md) |
-| Dokploy | nova-04 | VM | App hosting / deployment | Exposed | [dokploy.md](dokploy.md) |
-| Gitea | nova-04 | VM | Self-hosted Git | `TODO(T10)` | [gitea.md](gitea.md) |
-| Hermes agent | nova-04 | VM | AI agent stack | `TODO(T10)` | [hermes-agent.md](hermes-agent.md) |
+| Service | Host | Type | Guest ID | Purpose | Exposure | Page |
+|---|---|---|---|---|---|---|
+| Immich | nova-04 | VM | 101 (running) | Photo management | Exposed | [immich.md](immich.md) |
+| Tailscale | nova-04 | LXC | 102 (running) | Mesh VPN endpoint | `TODO(T10)` | [vpn.md](vpn.md) |
+| Navidrome | nova-04 | LXC | 103 (stopped) | Music streaming | `TODO(T10)` | [navidrome.md](navidrome.md) |
+| Hermes agent | nova-03 | VM | 111 (running) | AI agent stack | `TODO(T10)` | [hermes-agent.md](hermes-agent.md) |
+
+## Not in Proxmox
+
+- **Dokploy / Gitea** — no such guests exist in the cluster. Earlier docs listed
+  them on nova-04; those pages have been removed. If they are re-provisioned,
+  re-add them here with their new guest IDs.
+- **nova-ctrl guests** — unknown; the node was offline at snapshot time
+  (`TODO(T3)`).
 
 ## Common service template
 
@@ -26,10 +33,11 @@ Every service page records, where known:
 
 ## Placement summary
 
-- nova-ctrl: VPN LXCs only.
-- nova-04: the application VMs/LXCs (Immich, Dokploy, Gitea, Navidrome, Hermes).
-- nova-01..03: k3s-hosted workloads (via Dokploy or direct manifests) — any k3s
-  workloads are not yet catalogued (`TODO(T2)`).
+- nova-ctrl: unknown (offline 2026-09-27).
+- nova-04: Immich (101), Tailscale (102), Navidrome (103, stopped).
+- nova-03: Hermes agent (111) alongside k3s (`TODO(T2)`).
+- nova-01..02: k3s only — no Proxmox guests; k3s workloads themselves are not
+  yet catalogued (`TODO(T2)`).
 
 Related: [storage](../storage/zfs-and-pools.md) · [backup-and-dr.md](../backup-and-dr.md)
 · [README](../README.md)
