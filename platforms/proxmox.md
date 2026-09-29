@@ -18,7 +18,7 @@ The nova cluster is a single Proxmox VE cluster. All five nodes joined the clust
 Snapshot via `GET /cluster/status`, `/nodes`, `/cluster/resources?type=vm`,
 per-guest `config`, per-node `storage`, and `cluster/ha/resources`.
 Cluster `Nova`: 5 members, quorate, version 9. Nodes live on `10.0.0.0/24`
-(host octets masked per redaction policy).
+(per-node addresses in [servers.md](../inventory/servers.md)).
 
 | Node | Node ID | Status | Guests |
 |---|---|---|---|
